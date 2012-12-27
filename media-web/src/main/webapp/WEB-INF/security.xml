@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+        <constructor-arg>
+            <util:list>
+                <sec:filter-chain pattern="/**" filters="
+                    securityContextPersistenceFilter, 
+                    authenticationFilter, 
+                    requestCacheAwareFilter,
+                    securityContextHolderAwareRequestFilter,
+                    rememberMeAuthenticationFilter,
+                    anonymousAuthenticationFilter,
+                    exceptionTranslationFilter, 
+                    filterSecurityInterceptor"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="securityContextPersistenceFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter" />
+
+    <bean id="authenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter" p:authenticationManager-ref="authenticationManager" p:filterProcessesUrl="/jsc" p:rememberMeServices-ref="rememberMeServices" />
+
+    <bean id="requestCacheAwareFilter" class="org.springframework.security.web.savedrequest.RequestCacheAwareFilter" />
+
+    <bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter" />
+
+    <bean id="rememberMeAuthenticationFilter" class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter"> 
+        <property name="rememberMeServices" ref="rememberMeServices"/>
+        <property name="authenticationManager" ref="authenticationManager" />
+    </bean>
+
+    <bean id="rememberMeServices" class="com.tissue.commons.security.rememberme.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
+
+    <bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider" c:key="testkey" />
+
+    <bean id="anonymousAuthenticationFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+        <constructor-arg value="test1" />
+    </bean>
+
+    <bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint" ref="authenticationEntryPoint"/>
+        <property name="accessDeniedHandler" ref="accessDeniedHandler"/>
+    </bean>
+
+    <bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <property name="loginFormUrl" value="/plan/login"/>
+    </bean>
+
+    <bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+        <property name="errorPage" value="/accessDenied.htm"/> 
+    </bean>
+
+    <bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="accessDecisionManager">
+            <bean class="org.springframework.security.access.vote.AffirmativeBased">
+                <property name="allowIfAllAbstainDecisions" value="false" />
+                <property name="decisionVoters">
+                    <list>
+                        <bean class="org.springframework.security.access.vote.RoleVoter" />
+                        <bean class="org.springframework.security.web.access.expression.WebExpressionVoter" />
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="securityMetadataSource">
+            <sec:filter-security-metadata-source path-type="regex">
+                <sec:intercept-url pattern="/.*/topics" access="ROLE_user" />
+                <sec:intercept-url pattern="/.*/topics/" access="ROLE_user" />
+                <sec:intercept-url pattern="/.*/topics/.*?action.*" access="ROLE_user" />
+                <sec:intercept-url pattern="/.*/explore*" access="ROLE_ANONYMOUS, ROLE_user" />
+            </sec:filter-security-metadata-source>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
+    <bean id="authenticationManager" class="org.springframework.security.authentication.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref bean="daoAuthenticationProvider" />
+                <ref bean="rememberMeAuthenticationProvider" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="userDetailsService" ref="userDetailsService"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+
+    <bean id="userDetailsService" class="com.tissue.commons.security.core.userdetails.service.UserDetailsServiceImpl">
+        <property name="userDetailsDao" ref="userDetailsDao" />
+    </bean>
+
+    <bean id="userDetailsDao" class="com.tissue.commons.security.core.userdetails.dao.orient.UserDetailsDao">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+</beans>
