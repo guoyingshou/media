@@ -15,7 +15,9 @@
   <version>1.0-SNAPSHOT</version>
 
   <modules>
+      <!--
     <module>media-dao</module>
+    -->
     <module>media-service</module>
     <module>media-comp</module>
     <module>media-web</module>

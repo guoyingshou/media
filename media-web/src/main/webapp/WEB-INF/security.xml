@@ -45,7 +45,7 @@
         <property name="authenticationManager" ref="authenticationManager" />
     </bean>
 
-    <bean id="rememberMeServices" class="com.tissue.commons.security.rememberme.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
+    <bean id="rememberMeServices" class="com.tissue.commons.security.service.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
 
     <bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider" c:key="testkey" />
 
@@ -59,7 +59,7 @@
     </bean>
 
     <bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-        <property name="loginFormUrl" value="/plan/login"/>
+        <property name="loginFormUrl" value="http://www.tissue.com/social/login"/>
     </bean>
 
     <bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
@@ -81,10 +81,9 @@
         </property>
         <property name="securityMetadataSource">
             <sec:filter-security-metadata-source path-type="regex">
-                <sec:intercept-url pattern="/.*/topics" access="ROLE_user" />
-                <sec:intercept-url pattern="/.*/topics/" access="ROLE_user" />
-                <sec:intercept-url pattern="/.*/topics/.*?action.*" access="ROLE_user" />
-                <sec:intercept-url pattern="/.*/explore*" access="ROLE_ANONYMOUS, ROLE_user" />
+                <sec:intercept-url pattern="/.*/update" access="ROLE_user" />
+                <sec:intercept-url pattern="/.*/_new" access="ROLE_user" />
+                <sec:intercept-url pattern="/*" access="ROLE_ANONYMOUS, ROLE_user" />
             </sec:filter-security-metadata-source>
         </property>
     </bean>
@@ -105,11 +104,11 @@
         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
 
-    <bean id="userDetailsService" class="com.tissue.commons.security.core.userdetails.service.UserDetailsServiceImpl">
+    <bean id="userDetailsService" class="com.tissue.commons.security.service.UserDetailsServiceImpl">
         <property name="userDetailsDao" ref="userDetailsDao" />
     </bean>
 
-    <bean id="userDetailsDao" class="com.tissue.commons.security.core.userdetails.dao.orient.UserDetailsDao">
+    <bean id="userDetailsDao" class="com.tissue.core.security.dao.orient.UserDetailsDaoImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
