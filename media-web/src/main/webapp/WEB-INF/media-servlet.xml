@@ -28,7 +28,7 @@
     
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
        
-    <import resource="media-controller.xml" />
     <import resource="commons-controller.xml" />
+    <import resource="media-controller.xml" />
 
 </beans>

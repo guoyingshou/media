@@ -23,8 +23,7 @@
      </bean>
 
   <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
-  <import resource="commons-dao.xml" />
-  <import resource="media-dao.xml" />
   <import resource="security.xml" />
+  <import resource="commons-dao.xml" />
  
 </beans>

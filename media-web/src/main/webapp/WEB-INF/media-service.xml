@@ -11,9 +11,6 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-           <!--
-    <context:component-scan base-package="com.tissue.media.services" />
-    -->
     <bean id="imageService" class="com.tissue.media.services.ImageService">
     
     </bean>

@@ -27,13 +27,13 @@
 
     <dependency>
       <groupId>com.tissue</groupId>
-      <artifactId>media-service</artifactId>
+      <artifactId>tissue-commons</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>com.tissue</groupId>
-      <artifactId>tissue-commons</artifactId>
+      <artifactId>media-service</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
 

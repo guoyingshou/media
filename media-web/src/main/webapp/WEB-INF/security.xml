@@ -34,7 +34,11 @@
 
     <bean id="securityContextPersistenceFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter" />
 
-    <bean id="authenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter" p:authenticationManager-ref="authenticationManager" p:filterProcessesUrl="/jsc" p:rememberMeServices-ref="rememberMeServices" />
+    <bean id="authenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter" p:authenticationManager-ref="authenticationManager" p:filterProcessesUrl="/jsc" p:rememberMeServices-ref="rememberMeServices" p:authenticationFailureHandler-ref="failureHandler" p:authenticationSuccessHandler-ref="successHandler" />
+
+    <bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" p:defaultFailureUrl="/login?error=t" />
+
+    <bean id="successHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler" p:defaultTargetUrl="/dashboard" />
 
     <bean id="requestCacheAwareFilter" class="org.springframework.security.web.savedrequest.RequestCacheAwareFilter" />
 
@@ -45,7 +49,7 @@
         <property name="authenticationManager" ref="authenticationManager" />
     </bean>
 
-    <bean id="rememberMeServices" class="com.tissue.commons.security.service.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
+    <bean id="rememberMeServices" class="com.tissue.commons.security.services.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
 
     <bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider" c:key="testkey" />
 
@@ -59,11 +63,11 @@
     </bean>
 
     <bean id="authenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-        <property name="loginFormUrl" value="http://www.tissue.com/social/login"/>
+        <property name="loginFormUrl" value="/login"/>
     </bean>
 
     <bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
-        <property name="errorPage" value="/accessDenied.htm"/> 
+        <property name="errorPage" value="/accessDenied"/> 
     </bean>
 
     <bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
@@ -80,10 +84,9 @@
             </bean>
         </property>
         <property name="securityMetadataSource">
-            <sec:filter-security-metadata-source path-type="regex">
-                <sec:intercept-url pattern="/.*/update" access="ROLE_user" />
-                <sec:intercept-url pattern="/.*/_new" access="ROLE_user" />
-                <sec:intercept-url pattern="/*" access="ROLE_ANONYMOUS, ROLE_user" />
+            <sec:filter-security-metadata-source request-matcher="regex">
+                <sec:intercept-url pattern="/_.*" access="ROLE_USER" />
+                <sec:intercept-url pattern="/.*" access="ROLE_ANONYMOUS, ROLE_USER" />
             </sec:filter-security-metadata-source>
         </property>
     </bean>
@@ -104,7 +107,7 @@
         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
 
-    <bean id="userDetailsService" class="com.tissue.commons.security.service.UserDetailsServiceImpl">
+    <bean id="userDetailsService" class="com.tissue.commons.security.services.UserDetailsServiceImpl">
         <property name="userDetailsDao" ref="userDetailsDao" />
     </bean>
 
