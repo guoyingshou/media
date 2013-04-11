@@ -14,16 +14,19 @@
      http://www.springframework.org/schema/util
      http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-     <bean id="dataSource" class="com.tissue.core.util.OrientDataSource" destroy-method="destroy">
-         <constructor-arg value="remote:www.tissue.com/test1" />
-         <constructor-arg value="guo" />
-         <constructor-arg value="guo" />
-         <constructor-arg value="20" />
-         <constructor-arg value="40" />
-     </bean>
+    <context:property-placeholder location="classpath:orientdb.properties" />
 
-  <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
-  <import resource="security.xml" />
-  <import resource="commons-dao.xml" />
- 
+    <import resource="security.xml" />
+    <import resource="dao.xml" />
+
+    <bean id="dataSource" class="com.tissue.core.util.OrientDataSource" destroy-method="destroy">
+        <constructor-arg value="${db_url}" />
+        <constructor-arg value="${db_username}" />
+        <constructor-arg value="${db_password}" />
+        <constructor-arg value="${db_min}" />
+        <constructor-arg value="${db_max}" />
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+
 </beans>

@@ -49,7 +49,7 @@
         <property name="authenticationManager" ref="authenticationManager" />
     </bean>
 
-    <bean id="rememberMeServices" class="com.tissue.commons.security.services.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
+    <bean id="rememberMeServices" class="com.tissue.commons.services.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
 
     <bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider" c:key="testkey" />
 
@@ -107,11 +107,11 @@
         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
 
-    <bean id="userDetailsService" class="com.tissue.commons.security.services.UserDetailsServiceImpl">
+    <bean id="userDetailsService" class="com.tissue.commons.services.UserDetailsServiceImpl">
         <property name="userDetailsDao" ref="userDetailsDao" />
     </bean>
 
-    <bean id="userDetailsDao" class="com.tissue.core.security.dao.orient.UserDetailsDaoImpl">
+    <bean id="userDetailsDao" class="com.tissue.security.dao.orient.UserDetailsDaoImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 

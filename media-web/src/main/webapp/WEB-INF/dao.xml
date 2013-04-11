@@ -15,8 +15,7 @@
 	       http://www.springframework.org/schema/util 
 	       http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 	
-    <context:component-scan base-package="com.tissue.core.orient.dao.orient" />
-    <context:component-scan base-package="com.tissue.core.social.dao.orient" />
-    <context:component-scan base-package="com.tissue.core.security.dao.orient" />
+    <context:component-scan base-package="com.tissue.core.dao.orient" />
+    <context:component-scan base-package="com.tissue.security.dao.orient" />
 
 </beans>

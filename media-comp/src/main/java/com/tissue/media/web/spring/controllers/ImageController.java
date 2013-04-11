@@ -1,6 +1,6 @@
 package com.tissue.media.web.spring.controllers;
 
-import com.tissue.core.social.Account;
+import com.tissue.core.Account;
 import com.tissue.media.services.ImageService;
 
 import org.springframework.stereotype.Controller;

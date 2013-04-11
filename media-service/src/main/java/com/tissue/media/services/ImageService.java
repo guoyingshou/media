@@ -2,6 +2,10 @@ package com.tissue.media.services;
 
 import org.springframework.web.multipart.MultipartFile;
 
+//import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
 import org.im4java.core.Info;
@@ -13,8 +17,16 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 
+@Component
 public class ImageService {
 
+    @Value("${dataRoot}")
+    private String dataRoot;
+
+    @Value("${webRoot}")
+    private String webRoot;
+
+    /**
     private String webRoot = "http://www.tissue.com/images/";
     private String dataRoot = "/home/guoyingshou/working/github/images/";
 
@@ -25,6 +37,7 @@ public class ImageService {
     public void setDataRoot(String dataRoot) {
        this.dataRoot = dataRoot;
     }
+    */
 
     public String saveFile(MultipartFile multipartFile, String username) throws Exception {
 
@@ -48,8 +61,8 @@ public class ImageService {
         op.addImage(rawFile.toString());
 
         Info info = new Info(rawFile.toString());
-        if(info.getImageWidth() > 600) {
-            op.resize(600);
+        if(info.getImageWidth() > 480) {
+            op.resize(480);
         }
 
         Path imageFile = userRoot.resolve(imageName);
