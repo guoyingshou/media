@@ -26,19 +26,6 @@ public class ImageService {
     @Value("${webRoot}")
     private String webRoot;
 
-    /**
-    private String webRoot = "http://www.tissue.com/images/";
-    private String dataRoot = "/home/guoyingshou/working/github/images/";
-
-    public void setWebRoot(String rootPath) {
-       this.webRoot = webRoot;
-    }
-
-    public void setDataRoot(String dataRoot) {
-       this.dataRoot = dataRoot;
-    }
-    */
-
     public String saveFile(MultipartFile multipartFile, String username) throws Exception {
 
         String imageName = UUID.randomUUID().toString() + ".png";

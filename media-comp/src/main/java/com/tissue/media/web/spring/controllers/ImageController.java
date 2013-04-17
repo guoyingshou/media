@@ -1,6 +1,7 @@
 package com.tissue.media.web.spring.controllers;
 
 import com.tissue.core.Account;
+import com.tissue.commons.services.ViewerService;
 import com.tissue.media.services.ImageService;
 
 import org.springframework.stereotype.Controller;
@@ -37,10 +38,15 @@ public class ImageController {
     private static Logger logger = LoggerFactory.getLogger(ImageController.class);
 
     @Autowired
+    private ViewerService viewerService;
+
+    @Autowired
     private ImageService imageService;
 
     @RequestMapping(value="/images/_create", method=POST)
-    public String addImage(@RequestParam("CKEditorFuncNum") String num, @RequestParam("upload") MultipartFile file, Map model, @ModelAttribute("viewerAccount") Account viewerAccount) {
+    public String addImage(@RequestParam("CKEditorFuncNum") String num, @RequestParam("upload") MultipartFile file, Map model) {
+
+        Account viewerAccount = viewerService.getViewerAccount();
 
         List<String> images = Arrays.asList("image/jpeg", "image/png", "image/gif");
         String type = file.getContentType();
@@ -60,15 +66,12 @@ public class ImageController {
         return "uploadImageCallback"; 
     }
 
+    /**
     @RequestMapping(value="/browseImages")
     public String browseImage(@RequestParam("CKEditorFuncNum") String num, Map model) {
         model.put("num", num);
         return "browseImageCallback"; 
     }
-
-    @RequestMapping("/ttt") 
-    public String test() {
-        return "ttt";
-    }
+    */
 
 }
