@@ -19,14 +19,4 @@
     <import resource="security.xml" />
     <import resource="dao.xml" />
 
-    <bean id="dataSource" class="com.tissue.core.util.OrientDataSource" destroy-method="destroy">
-        <constructor-arg value="${db_url}" />
-        <constructor-arg value="${db_username}" />
-        <constructor-arg value="${db_password}" />
-        <constructor-arg value="${db_min}" />
-        <constructor-arg value="${db_max}" />
-    </bean>
-
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
-
 </beans>
