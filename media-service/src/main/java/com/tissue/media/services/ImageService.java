@@ -17,8 +17,13 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class ImageService {
+
+    private static Logger logger = LoggerFactory.getLogger(ImageService.class);
 
     @Value("${dataRoot}")
     private String dataRoot;
@@ -29,6 +34,7 @@ public class ImageService {
     public String saveFile(MultipartFile multipartFile, String username) throws Exception {
 
         String imageName = UUID.randomUUID().toString() + ".png";
+	logger.debug("Image name: " + imageName);
 
         Path dir = Paths.get(dataRoot);
 
@@ -36,6 +42,7 @@ public class ImageService {
         Path rawDataDir = userRoot.resolve("raw");
 
         if(Files.notExists(rawDataDir)) {
+	    logger.debug("Create directory: " + rawDataDir);
             Files.createDirectories(rawDataDir);
         }
 
