@@ -2,7 +2,6 @@ package com.tissue.media.services;
 
 import org.springframework.web.multipart.MultipartFile;
 
-//import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -34,7 +33,7 @@ public class ImageService {
     public String saveFile(MultipartFile multipartFile, String username) throws Exception {
 
         String imageName = UUID.randomUUID().toString() + ".png";
-	logger.debug("Image name: " + imageName);
+        logger.debug("Image name: " + imageName);
 
         Path dir = Paths.get(dataRoot);
 
@@ -42,7 +41,7 @@ public class ImageService {
         Path rawDataDir = userRoot.resolve("raw");
 
         if(Files.notExists(rawDataDir)) {
-	    logger.debug("Create directory: " + rawDataDir);
+	        logger.debug("Create directory: " + rawDataDir);
             Files.createDirectories(rawDataDir);
         }
 
