@@ -47,12 +47,14 @@
             <port>8003</port>
             <path>/media</path>
             <contextFile>conf/context.xml</contextFile>
+                <!--
             <systemProperties>
               <systemProperty>
                 <name>log4j.configuration</name>
                 <value>file:${project.basedir}/dev-web/src/test/resources/log4j.properties</value>
               </systemProperty>
             </systemProperties>
+            -->
           <useTestClasspath>false</useTestClasspath>
         </configuration>
       </plugin>
