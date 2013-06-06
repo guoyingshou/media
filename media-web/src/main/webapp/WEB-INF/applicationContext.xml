@@ -14,9 +14,9 @@
      http://www.springframework.org/schema/util
      http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-    <context:property-placeholder location="classpath:orientdb.properties" />
-
-    <import resource="security.xml" />
+     <context:property-placeholder location="file:/home/guoyingshou/daronglu/etc/smtp.properties, 
+                                             file:/home/guoyingshou/daronglu/etc/orientdb.properties" />
     <import resource="dao.xml" />
+    <import resource="security.xml" />
 
 </beans>

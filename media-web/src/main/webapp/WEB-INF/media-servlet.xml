@@ -12,9 +12,10 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 		   
+    <context:property-placeholder location="file:/home/guoyingshou/daronglu/etc/media.properties" />
+
     <import resource="controller.xml" />
 
-    <context:property-placeholder location="classpath:media.properties" />
     <mvc:annotation-driven />
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
