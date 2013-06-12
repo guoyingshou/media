@@ -46,6 +46,8 @@ public class ImageController {
     @RequestMapping(value="/images/_create", method=POST)
     public String addImage(@RequestParam("CKEditorFuncNum") String num, @RequestParam("upload") MultipartFile file, Map model) {
 
+        logger.debug("CKEditorFuncNum: " + num);
+
         Account viewerAccount = viewerService.getViewerAccount();
 
         List<String> images = Arrays.asList("image/jpeg", "image/png", "image/gif");
@@ -56,6 +58,8 @@ public class ImageController {
 
         try {
             String imageUrl = imageService.saveFile(file, viewerAccount.getUsername());
+            logger.debug("username: " + viewerAccount.getUsername() + "; imageUrl: " + imageUrl);
+
             model.put("imageUrl", imageUrl);
             model.put("num", num);
         }

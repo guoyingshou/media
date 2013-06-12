@@ -54,8 +54,8 @@ public class ImageService {
         op.addImage(rawFile.toString());
 
         Info info = new Info(rawFile.toString());
-        if(info.getImageWidth() > 480) {
-            op.resize(480);
+        if(info.getImageWidth() > 600) {
+            op.resize(600);
         }
 
         Path imageFile = userRoot.resolve(imageName);
