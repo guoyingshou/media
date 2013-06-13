@@ -12,7 +12,7 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 		   
-    <context:property-placeholder location="file:/home/guoyingshou/daronglu/etc/media.properties" />
+    <context:property-placeholder location="file:/opt/daronglu/config/media.properties" />
 
     <import resource="controller.xml" />
 

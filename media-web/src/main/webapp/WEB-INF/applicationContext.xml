@@ -14,8 +14,8 @@
      http://www.springframework.org/schema/util
      http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
-     <context:property-placeholder location="file:/home/guoyingshou/daronglu/etc/smtp.properties, 
-                                             file:/home/guoyingshou/daronglu/etc/orientdb.properties" />
+     <context:property-placeholder location="file:/opt/daronglu/config/smtp.properties, 
+                                             file:/opt/daronglu/config/orientdb.properties" />
     <import resource="dao.xml" />
     <import resource="security.xml" />
 
