@@ -18,6 +18,7 @@
     <context:component-scan base-package="com.tissue.core.datasources" />
     <context:component-scan base-package="com.tissue.core.dao.orient" />
     <context:component-scan base-package="com.tissue.security.dao.orient" />
+    <context:component-scan base-package="com.tissue.social.dao.orient" />
     <context:component-scan base-package="com.tissue.plan.dao.orient" />
 
 </beans>
