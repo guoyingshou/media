@@ -49,7 +49,7 @@
         <property name="authenticationManager" ref="authenticationManager" />
     </bean>
 
-    <bean id="rememberMeServices" class="com.tissue.commons.services.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
+    <bean id="rememberMeServices" class="com.tissue.commons.spring.security.MyRememberMeServices" c:key="testkey" c:userDetailsService-ref="userDetailsService" p:alwaysRemember="true" />
 
     <bean id="rememberMeAuthenticationProvider" class="org.springframework.security.authentication.RememberMeAuthenticationProvider" c:key="testkey" />
 
@@ -107,7 +107,7 @@
         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
 
-    <bean id="userDetailsService" class="com.tissue.commons.services.UserDetailsServiceImpl">
+    <bean id="userDetailsService" class="com.tissue.commons.spring.security.UserDetailsServiceImpl">
         <property name="userDetailsDao" ref="userDetailsDao" />
     </bean>
 
